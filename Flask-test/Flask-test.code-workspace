@@ -1,0 +1,6 @@
+{
+	"folders": [{
+        "uri": "sftp://root:123456@host:port/var/www?keepAlive=3600",
+        "name": "remote_www"
+    }]
+}
