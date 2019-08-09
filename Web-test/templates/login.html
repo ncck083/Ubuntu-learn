@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <script src="js/plugin/base64.js"></script>
+    <script src="js/plugin/jsencrypt.min.js" type="text/javascript"></script>
+    <script>
+        function enscrect(){            
+                //获取密码
+            var password = document.getElementById("pass").innerText;
+            
+            //获取公钥
+            var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCwpy1kDdV8O2oVVQFWB2eXVJ834HhjO2SsIgK2Wf7X3QSY6YpwUp3hfginZdLEM8k0MD8mMmc0FffGgCXYTo03diIKLapJF/Yy9KQLurBOazdm8qNmL/ueYy112B0MmYgngmO8q1t/rg5c32qATdE/79KsQk6U6R+D1RTiEi4zIwIDAQAB-----END PUBLIC KEY-----";
+            //rsa加密
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(PUBLIC_KEY);
+            var passwords = encrypt.encrypt(password);//加密后的字符串
+        }
+        </script>
+</head>
+<body>
+
+    <form method="post" action="/login_check1">
+        用户名：<input type="text" name="username"><br/>
+        密码：<input type="password" name="password" id = "pass"><br/>
+        <input type="submit" value="登录" onclick="enscrect()">
+    </form>
+</body>
+</html>
