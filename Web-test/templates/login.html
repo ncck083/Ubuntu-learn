@@ -7,26 +7,62 @@
     <title>登录</title>
     <script src="js/plugin/base64.js"></script>
     <script src="js/plugin/jsencrypt.min.js" type="text/javascript"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    
     <script>
         function enscrect(){            
                 //获取密码
-            var password = document.getElementById("pass").innerText;
+            var password = document.getElementById("pass").value;
             
             //获取公钥
             var PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCwpy1kDdV8O2oVVQFWB2eXVJ834HhjO2SsIgK2Wf7X3QSY6YpwUp3hfginZdLEM8k0MD8mMmc0FffGgCXYTo03diIKLapJF/Yy9KQLurBOazdm8qNmL/ueYy112B0MmYgngmO8q1t/rg5c32qATdE/79KsQk6U6R+D1RTiEi4zIwIDAQAB-----END PUBLIC KEY-----";
             //rsa加密
             var encrypt = new JSEncrypt();
-            encrypt.setPublicKey(PUBLIC_KEY);
-            var passwords = encrypt.encrypt(password);//加密后的字符串
+            // encrypt.setPublicKey(PUBLIC_KEY);
+            // password = encrypt.encrypt(password);//加密后的字符串
+            document.getElementById("pass").value= "110";
+
         }
+
+        var register_flag = false;
+        function register(){
+            var data= {
+                "register_flag": 1,
+            }
+
+            $.ajax({
+                url:"{{ url_for('login_Check') }}",
+                type:"post",
+                data:data,
+                contentType: "application/json", 
+                dataType: 'json',
+                success: function (json_obj) {
+                    alert(data);
+                
+                } 
+            })
+            alert("success")
+            return true
+        }
+        
+        
+        function ww(){
+            psd = document.getElementById("pass").value
+
+            document.getElementById("pass").value="100";
+
+        }
+
         </script>
 </head>
 <body>
-
-    <form method="post" action="/login_check1">
-        用户名：<input type="text" name="username"><br/>
-        密码：<input type="password" name="password" id = "pass"><br/>
-        <input type="submit" value="登录" onclick="enscrect()">
+    <form method="post">
+        用户名：<input type="text" name="username" id = "3"><br/>
+        密码：<input type="password" name="password" id="pass"><br/>
+        <input type="submit" value="登录"  onclick="enscrect()">     
     </form>
+</body>
+<a href="/" onclick="enscrect()"><button>登录</button></a>
+<a href="register"><button>注册</button></a>
 </body>
 </html>
